@@ -1,0 +1,36 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: api-app
+  labels:
+    app: api-app
+spec:
+  containers:
+  - name: api-app
+    image: api-app:latest
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: api-app-service
+spec:
+  selector:
+    app: api-app
+  ports:
+  - port: 8888
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: api-app-ingress
+spec:
+  rules:
+  - http:
+      paths:
+      - pathType: Prefix
+        path: "/api"
+        backend:
+          service:
+            name: api-app-service
+            port:
+              number: 9999
