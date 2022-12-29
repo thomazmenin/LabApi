@@ -33,4 +33,4 @@ spec:
           service:
             name: api-app-service
             port:
-              number: 9999
+              number: 8888
